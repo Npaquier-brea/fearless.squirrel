@@ -4,7 +4,7 @@
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
  */
-THREE.OrbitControls = function(object, domElement) {
+THREE.OrbitControls = function (object, domElement) {
     this.object = object;
     this.domElement = (domElement !== undefined) ? domElement : document;
 
@@ -73,7 +73,7 @@ THREE.OrbitControls = function(object, domElement) {
         type: 'change'
     };
 
-    this.rotateLeft = function(angle) {
+    this.rotateLeft = function (angle) {
         if (angle === undefined) {
             angle = getAutoRotationAngle();
         }
@@ -81,49 +81,49 @@ THREE.OrbitControls = function(object, domElement) {
         thetaDelta -= angle;
     };
 
-    this.rotateRight = function(angle) {
+    this.rotateRight = function (angle) {
         if (angle === undefined) {
             angle = getAutoRotationAngle();
         }
         thetaDelta += angle;
     };
 
-    this.rotateUp = function(angle) {
+    this.rotateUp = function (angle) {
         if (angle === undefined) {
             angle = getAutoRotationAngle();
         }
         phiDelta -= angle;
     };
 
-    this.rotateDown = function(angle) {
+    this.rotateDown = function (angle) {
         if (angle === undefined) {
             angle = getAutoRotationAngle();
         }
         phiDelta += angle;
     };
 
-    this.zoomIn = function(zoomScale) {
+    this.zoomIn = function (zoomScale) {
         if (zoomScale === undefined) {
             zoomScale = getZoomScale();
         }
         scale /= zoomScale;
     };
 
-    this.zoomOut = function(zoomScale) {
+    this.zoomOut = function (zoomScale) {
         if (zoomScale === undefined) {
             zoomScale = getZoomScale();
         }
         scale *= zoomScale;
     };
 
-    this.pan = function(distance) {
+    this.pan = function (distance) {
         distance.transformDirection(this.object.matrix);
         distance.multiplyScalar(scope.userPanSpeed);
         this.object.position.add(distance);
         this.center.add(distance);
     };
 
-    this.update = function() {
+    this.update = function () {
         var position = this.object.position;
         var offset = position.clone().sub(this.center);
 
@@ -296,11 +296,11 @@ THREE.OrbitControls = function(object, domElement) {
                 break;
         }
     }
-    this.domElement.addEventListener('contextmenu', function(event) {
+    this.domElement.addEventListener('contextmenu', function (event) {
         event.preventDefault();
     }, false);
     this.domElement.addEventListener('mousedown', onMouseDown, false);
-    this.domElement.addEventListener('mousewheel', onMouseWheel, false);
+    this.domElement.addEventListener('mousewheel', onMouseWheel, { passive: true });
     this.domElement.addEventListener('DOMMouseScroll', onMouseWheel, false); // firefox
     window.addEventListener('keydown', onKeyDown, false);
     window.addEventListener('keyup', onKeyUp, false);
